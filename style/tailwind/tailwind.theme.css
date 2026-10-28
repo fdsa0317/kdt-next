@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* 커스텀 애니메이션 */
+@theme {
+    --animate-wiggle: wiggle 1s ease-in infinite;
+    @keyframes wiggle {
+      0% {
+        transform: rotate(-10deg)
+      }
+      50% {
+        transform: rotate(255deg)
+      }
+      100% {
+        transform: rotate(15deg)
+      }    
+    }
+}
