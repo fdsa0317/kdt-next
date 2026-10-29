@@ -1,3 +1,7 @@
+"use client"
+
+import Todo from "./_component/Todo"
+
 export default function page() {
 
     // 할 일 목록 상태 관리
@@ -21,9 +25,13 @@ export default function page() {
         }
     ]
 
+    const todosList = todos.map((todo, i) => (
+        <Todo key={i} todo={todo} />
+    )) 
+
     return (
         <>
-            Enter
+            {todosList}
         </>
     );
 }

@@ -4,6 +4,7 @@ import "@/style/tailwind/tailwind.theme.css"
 import { pretendard } from "@/style/font/font";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import ReactQueryProvider from "@/provider/ReactQueryProvider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={cn(pretendard.variable, "font-sans", geist.variable)}>
-      <body className="font-pretendard">{children}</body>
+      <body className="font-pretendard">
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }
