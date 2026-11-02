@@ -13,12 +13,13 @@ export const metadata: Metadata = {
   description: "재밌게 공부하는 Next 16!"
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children, modal }: LayoutProps<"/">) {
   return (
     <html lang="en" className={cn(pretendard.variable, "font-sans", geist.variable)}>
       <body className="font-pretendard">
         <ReactQueryProvider>
           {children}
+          {modal}
         </ReactQueryProvider>
       </body>
     </html>
