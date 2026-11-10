@@ -15,7 +15,7 @@ export default function Home() {
             >회원가입</Link>
             <Link
                 className="flex justify-center items-center w-50 h-10 bg-blue-500 text-white rounded-2xl mt-5 mb-5 cursor-pointer"
-                href={"/"}
+                href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`}
             >구글 로그인</Link>
             <Link
                 className="flex justify-center items-center w-50 h-10 bg-blue-500 text-white rounded-2xl mt-5 mb-5 cursor-pointer"

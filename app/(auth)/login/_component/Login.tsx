@@ -1,48 +1,27 @@
 "use client"
 
+import { loginApi } from "@/api/auth/auth.api";
+import { LoginRequestDTO } from "@/type/auth/auth.type";
 import { ApiResponseDTO } from "@/type/common/common.type";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-interface FormValues {
-    member_email: string;
-    member_password: string;
-}
-
-// 로그인 함수 
-const fetchLogin = async (formValues: FormValues) => {
-    const response = await fetch("http://localhost:10000/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include", // 쿠키를 주고 받을 때 옵션 허용
-        body: JSON.stringify(formValues)
-    })
-
-    if(!response.ok) throw new Error("")
-    const datas = await response.json()
-    console.log("fetchLogin datas", datas)
-    return datas
-}
-
-
 // 로그인
 export default function Login() {
 
     const {
-        register, handleSubmit, getValues, 
+        register, handleSubmit, 
         formState: {
-            isSubmitting, isSubmitted, errors
+            isSubmitting, errors
         }
-    } = useForm<FormValues>({mode: "onChange"})
+    } = useForm<LoginRequestDTO>({mode: "onChange"})
 
     const router = useRouter()
 
     // mutation 정의
     const loginMutation = useMutation({
-        mutationFn: fetchLogin,
+        mutationFn: loginApi,
         onSuccess: (datas: ApiResponseDTO) => {
             alert(datas.message)
             router.push("/")
@@ -52,8 +31,8 @@ export default function Login() {
         }
     })
 
-    const onSubmit = async (formValues: FormValues) => {
-        loginMutation.mutate(formValues)
+    const onSubmit = async (loginRequestDTO: LoginRequestDTO) => {
+        loginMutation.mutate(loginRequestDTO)
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
