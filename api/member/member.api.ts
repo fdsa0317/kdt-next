@@ -7,6 +7,7 @@ export const joinAdiitionalApi = async (joinDto: JoinAdditionalRequestDTO): Prom
         headers: {
             "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify(joinDto)
     })
 

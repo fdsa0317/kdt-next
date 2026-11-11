@@ -1,20 +1,24 @@
 "use client"
 
 import { logoutApi } from "@/api/auth/auth.api";
+import useAuthStore from "@/store/useAuthStore";
 import { ApiResponseDTO } from "@/type/common/common.type";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export default function MyPageContainer() {
 
+    const { member } = useAuthStore()
     const router = useRouter()
-    
+
     const logoutMutation = useMutation({
         mutationFn: logoutApi,
         onSuccess: (datas: ApiResponseDTO) => {
             router.push("/")
         },
-        onError: (error: Error) => {}
+        onError: (error: Error) => {
+            console.error(error)
+        }
     })
     const handleLogout = () => {
         logoutMutation.mutate()
@@ -30,6 +34,7 @@ export default function MyPageContainer() {
                 </button>
             </div>
             <h1>마이페이지</h1>
+            <p>{member?.member_name}님 환영합니다!</p>
         </>
     );
 }
